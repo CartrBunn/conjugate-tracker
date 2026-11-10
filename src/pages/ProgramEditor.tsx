@@ -433,6 +433,7 @@ function DayEditor(props: {
           <label>
             Coaching note
             <input type="text" value={day.main.note} onChange={(e) => edit((x) => (x.main.note = e.target.value))} placeholder="e.g. Explode off the box." />
+            <small className="muted">Every athlete in the group sees this. Don't include names or health info.</small>
           </label>
         </div>
 
