@@ -1,0 +1,444 @@
+{
+  "name": "Example Conjugate Program",
+  "weeks": [
+    {
+      "week": 1,
+      "block": "Block 1 · Build",
+      "max": "Upper",
+      "pct": 50,
+      "days": [
+        {
+          "day": "Mon",
+          "type": "DL",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Speed Box Squat",
+            "rx": "8 x 2",
+            "key": "squat",
+            "pct": 50,
+            "note": "Explode off the box."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        },
+        {
+          "day": "Tue",
+          "type": "MU",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Bench Press",
+            "rx": "Work up to a 3RM",
+            "key": "bench",
+            "pct": null,
+            "note": "Stop when bar speed drops."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        },
+        {
+          "day": "Thu",
+          "type": "DL",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Speed Deadlift",
+            "rx": "6 x 1",
+            "key": "deadlift",
+            "pct": 50,
+            "note": "Fast pull from the floor."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        },
+        {
+          "day": "Fri",
+          "type": "DU",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Speed Bench Press",
+            "rx": "9 x 3",
+            "key": "bench",
+            "pct": 50,
+            "note": "Fast off the chest."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "block": "Block 1 · Build",
+      "max": "Lower",
+      "pct": 55,
+      "days": [
+        {
+          "day": "Mon",
+          "type": "DU",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Speed Bench Press",
+            "rx": "9 x 3",
+            "key": "bench",
+            "pct": 55,
+            "note": "Fast off the chest."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        },
+        {
+          "day": "Tue",
+          "type": "DL",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Speed Deadlift",
+            "rx": "6 x 1",
+            "key": "deadlift",
+            "pct": 55,
+            "note": "Fast pull from the floor."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        },
+        {
+          "day": "Thu",
+          "type": "ML",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Box Squat",
+            "rx": "Work up to a 3RM",
+            "key": "squat",
+            "pct": null,
+            "note": "Stop when bar speed drops."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        },
+        {
+          "day": "Fri",
+          "type": "DU",
+          "circuit": [
+            {
+              "name": "Pogo Hops",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Squat Jumps",
+              "rx": "30 sec"
+            },
+            {
+              "name": "Skater Bounds",
+              "rx": "30 sec"
+            },
+            {
+              "name": "A-Skips",
+              "rx": "30 sec"
+            }
+          ],
+          "main": {
+            "name": "Speed Bench Press",
+            "rx": "9 x 3",
+            "key": "bench",
+            "pct": 55,
+            "note": "Fast off the chest."
+          },
+          "gpp": [
+            {
+              "name": "Box Jump",
+              "rx": "x5",
+              "cat": "Power"
+            },
+            {
+              "name": "Back Extension",
+              "rx": "x12",
+              "cat": "Post. Chain"
+            },
+            {
+              "name": "Goblet Squat",
+              "rx": "x10",
+              "cat": "Quad/Knee"
+            },
+            {
+              "name": "Glute Bridge",
+              "rx": "x15",
+              "cat": "Hip/Glute"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "videos": {
+    "A-Skips": "https://www.youtube.com/results?search_query=A-Skips+exercise+demo",
+    "Back Extension": "https://www.youtube.com/results?search_query=Back+Extension+exercise+demo",
+    "Bench Press": "https://www.youtube.com/results?search_query=Bench+Press+exercise+demo",
+    "Box Jump": "https://www.youtube.com/results?search_query=Box+Jump+exercise+demo",
+    "Box Squat": "https://www.youtube.com/results?search_query=Box+Squat+exercise+demo",
+    "Glute Bridge": "https://www.youtube.com/results?search_query=Glute+Bridge+exercise+demo",
+    "Goblet Squat": "https://www.youtube.com/results?search_query=Goblet+Squat+exercise+demo",
+    "Pogo Hops": "https://www.youtube.com/results?search_query=Pogo+Hops+exercise+demo",
+    "Skater Bounds": "https://www.youtube.com/results?search_query=Skater+Bounds+exercise+demo",
+    "Speed Bench Press": "https://www.youtube.com/results?search_query=Speed+Bench+Press+exercise+demo",
+    "Speed Box Squat": "https://www.youtube.com/results?search_query=Speed+Box+Squat+exercise+demo",
+    "Speed Deadlift": "https://www.youtube.com/results?search_query=Speed+Deadlift+exercise+demo",
+    "Squat Jumps": "https://www.youtube.com/results?search_query=Squat+Jumps+exercise+demo"
+  }
+}
