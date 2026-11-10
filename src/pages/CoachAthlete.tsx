@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import ProgressView from "../components/ProgressView";
+import TodayView from "../components/TodayView";
 import { useAthleteData } from "../lib/athleteData";
 import { shortDate } from "../lib/program";
 import { supabase } from "../lib/supabase";
 
-// Coach's view of one athlete: the same training maxes and lift progress the athlete sees
-// on /me/progress, for any cycle in their group. `?c=<cycleId>` picks the cycle.
+// Coach's view of one athlete: the same Workout (/me) and Progress (/me/progress) screens
+// the athlete sees, for any cycle in their group. `?c=<cycleId>` picks the cycle and
+// `?d=<date>` the workout day.
 
 interface Athlete {
   id: string;
@@ -15,7 +17,7 @@ interface Athlete {
   active: boolean;
 }
 
-export default function CoachAthlete() {
+export default function CoachAthlete({ view }: { view: "workout" | "progress" }) {
   const { athleteId } = useParams();
   const [params, setParams] = useSearchParams();
   const [athlete, setAthlete] = useState<Athlete | null>(null);
@@ -57,7 +59,9 @@ export default function CoachAthlete() {
   const prev = idx > 0 ? roster[idx - 1] : null;
   const next = idx >= 0 && idx < roster.length - 1 ? roster[idx + 1] : null;
   // Keep the chosen cycle when stepping between athletes in the same group.
-  const athleteLink = (id: string) => `/coach/athletes/${id}${cycleParam ? `?c=${cycleParam}` : ""}`;
+  const qs = cycleParam ? `?c=${cycleParam}` : "";
+  const base = (id: string) => `/coach/athletes/${id}`;
+  const athleteLink = (id: string) => `${base(id)}${view === "progress" ? "/progress" : ""}${qs}`;
 
   return (
     <>
@@ -84,6 +88,15 @@ export default function CoachAthlete() {
           </nav>
         )}
       </div>
+
+      <nav className="tabs" aria-label="Athlete views" style={{ alignSelf: "flex-start" }}>
+        <Link to={`${base(athlete.id)}${qs}`} aria-current={view === "workout" ? "page" : undefined}>
+          Workout
+        </Link>
+        <Link to={`${base(athlete.id)}/progress${qs}`} aria-current={view === "progress" ? "page" : undefined}>
+          Progress
+        </Link>
+      </nav>
 
       {data.error && <p className="err">{data.error}</p>}
 
@@ -113,7 +126,11 @@ export default function CoachAthlete() {
               </Link>
             )}
           </div>
-          <ProgressView data={data} emptyText="No results logged for this athlete in this cycle yet." />
+          {view === "workout" ? (
+            <TodayView data={data} athleteId={athlete.id} coach />
+          ) : (
+            <ProgressView data={data} emptyText="No results logged for this athlete in this cycle yet." />
+          )}
         </>
       )}
     </>
