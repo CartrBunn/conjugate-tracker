@@ -10,7 +10,7 @@ Specs: [docs/plans/conjugate-tracker-app.md](docs/plans/conjugate-tracker-app.md
 ## Setup
 
 1. **Create a Supabase project** (free tier) at supabase.com.
-2. **SQL Editor:** run each file in `supabase/migrations/` in order (`0001` → `0005`), then
+2. **SQL Editor:** run each file in `supabase/migrations/` in order (`0001` → `0006`), then
    `supabase/seed/exercises.sql`. Each migration runs once; don't re-run `0001` or `0004`.
 3. **Authentication → Sign In / Providers:** turn on **Allow anonymous sign-ins** (athletes).
    Leave Email on with its default settings (coaches use email + password).

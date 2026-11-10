@@ -10,6 +10,7 @@ import LogPage from "./pages/LogPage";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
 import Me from "./pages/Me";
+import MyProgress from "./pages/MyProgress";
 
 function Shell() {
   const { role, signOut } = useAuth();
@@ -62,6 +63,7 @@ const router = createHashRouter([
       { path: "/coach/cycles/:cycleId/log/:date", element: <Only role="coach"><LogPage /></Only> },
       { path: "/join", element: <Join /> },
       { path: "/me", element: <Only role="athlete"><Me /></Only> },
+      { path: "/me/progress", element: <Only role="athlete"><MyProgress /></Only> },
       { path: "*", element: <Navigate to="/" replace /> },
     ],
   },

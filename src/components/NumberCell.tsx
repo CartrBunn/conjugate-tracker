@@ -11,10 +11,12 @@ interface Props {
   row: number;
   col: number;
   grid: string;
+  disabled?: boolean;
+  placeholder?: string;
 }
 
 /** A numeric grid cell that saves on blur and shows saving / saved / error. */
-export default function NumberCell({ value, onSave, label, row, col, grid }: Props) {
+export default function NumberCell({ value, onSave, label, row, col, grid, disabled, placeholder }: Props) {
   const [text, setText] = useState(value == null ? "" : String(value));
   const [state, setState] = useState<SaveState>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +60,8 @@ export default function NumberCell({ value, onSave, label, row, col, grid }: Pro
       inputMode="decimal"
       autoComplete="off"
       aria-label={label}
+      disabled={disabled}
+      placeholder={placeholder}
       title={error ?? undefined}
       value={text}
       onChange={(e) => {

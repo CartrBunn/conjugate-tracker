@@ -82,7 +82,7 @@ That ping is optional and not part of the MVP.
 
 ```
 docs/plans/                     specs (this file)
-supabase/migrations/000N_*.sql   schema, RLS, functions; run in order (0001 → 0005)
+supabase/migrations/000N_*.sql   schema, RLS, functions; run in order (0001 → 0006)
 supabase/seed/example-program.json example program (weeks + video links)
 supabase/seed/exercises.sql         global exercise catalog
 src/lib/supabase.ts             client (reads VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY)
@@ -169,8 +169,8 @@ the caller `owner`.
 | `/#/coach/cycles/:id/log/:date` | coach | ✅ | **Logging grid** (below). |
 | `/#/coach/cycles/:id/review` | coach | Phase 3 | Cycle review (below). |
 | `/#/join` | anyone | ✅ | Athlete sign-in (see the sign-in spec). |
-| `/#/me` | athlete | Phase 2 | Today's session, port of the existing session view, plus log inputs and the speed-weight calculator. |
-| `/#/me/progress` | athlete | Phase 2 | Own charts. |
+| `/#/me` | athlete | ✅ Phase 2 | **Today** (see "Athlete app" below). `?d=YYYY-MM-DD` selects another program day. |
+| `/#/me/progress` | athlete | ✅ Phase 2 | **Progress**: current training maxes; one card per tracked lift with results showing first / best / change, a line chart and the full list. |
 
 ### Logic
 
@@ -199,8 +199,39 @@ the caller `owner`.
 - Count of athletes with at least one entry that day, e.g. "12/18 athletes".
 - A date that isn't a program day shows "No training on this day in this cycle".
 
-- **Training max update (Phase 2):** when an ME single for family F exceeds the current TM
-  for F, offer (don't force) to insert a `training_maxes` row with `source='me_single'`.
+- **Training max update:** see "Athlete app" below.
+
+### Athlete app (`/#/me`, `/#/me/progress`)
+
+- **Which cycle** (`pickCycle` in `src/lib/athleteData.ts`): the group's cycle running today
+  (active preferred), else the next one to start (shown as a preview), else the most recent
+  that isn't closed, else the most recent. With no cycles: "Your coach hasn't started a
+  training cycle".
+- **Default day:** today if it's a program day, else the next program day, else the last.
+  Previous/next arrows step through program days.
+- **Today screen**, in lifting order and from the original static program page:
+  1. **Plyo circuit:** a timer (`CircuitTimer`) running 2 rounds of 4 × 30 s work with 15 s
+     changes and 60 s between rounds; it beeps at each change and keeps the screen awake
+     while running. Each move has a Watch link from `programs.videos`.
+  2. **Main lift** card: name, prescription (`@ pct%` on DE days, "work up to max" on ME
+     days) and note. Calculator: on DE days the bar weight is `speedWeight(TM, pct)` using
+     the athlete's training max from the database (no longer stored on the phone); with no
+     TM it tells them to ask the coach.
+  3. **Your results:** `exercisesForDay(tracked, day)` as numeric inputs that save on blur
+     (upsert / delete on clear, the same key as the coach grid, so coach and athlete edit
+     the same values). Disabled for future dates.
+  4. **GPP** list with categories and Watch links, then the abbreviation key.
+- **Raising a training max:** after saving a result on an ME day for a squat/bench/deadlift
+  lift that beats the current TM, show "New best! Raise your <family> max from X to Y?".
+  Confirming calls RPC `raise_training_max(family, value)` (migration `0006`). That function
+  is security definer and only succeeds if the athlete has a logged result in that family
+  ≥ value and value > the current TM. It inserts `training_maxes` with
+  `set_on = current_date`, `source = 'me_single'`. Return values: `ok`, `not_higher`,
+  `no_result`, `invalid`, `not_athlete`. Athletes still cannot write `training_maxes`
+  directly.
+- **Progress chart** (`LineChart`): one series, so no legend; 2px line, 8px markers with
+  a surface ring, recessive grid, hover/tap tooltip with date and value, plus an
+  "All results" table as the non-visual view.
 
 ### Cycle review (Phase 3)
 
@@ -219,7 +250,7 @@ For a cycle and each athlete × tracked lift, using `logs` in that cycle:
 
 1. **MVP:** schema and RLS, coach OTP login, teams/groups/athletes, program import from the
    seed JSON, cycles, tracked lifts, training maxes, coach logging grid, athlete sign-in.
-2. **Athlete app:** `/#/me` session view + self-logging + calculator + own progress.
+2. **Athlete app:** ✅ done (2026-11-10).
 3. **Cycle review.**
 4. **Later:** program editor, copy cycle to another group, cross-cycle variation
    comparison, coach invites by email, anonymous-user cleanup job, inactivity ping, coach
