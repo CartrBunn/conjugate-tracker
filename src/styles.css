@@ -21,7 +21,7 @@ button, input, select { font: inherit; color: inherit }
 :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px }
 a { color: var(--link) }
 
-.band { background: var(--maroon); color: var(--maroon-ink) }
+.band { background: var(--maroon); color: var(--maroon-ink); padding-top: env(safe-area-inset-top) }
 .band .col { padding-block: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px }
 .brand { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: .02em; color: var(--maroon-ink); text-decoration: none }
 .brand span { color: var(--gold) }

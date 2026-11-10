@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#6b1d2a"/>
+  <g fill="#d9a938">
+    <!-- bar -->
+    <rect x="70" y="245" width="372" height="22" rx="6"/>
+    <!-- left plates -->
+    <rect x="148" y="150" width="40" height="212" rx="10"/>
+    <rect x="112" y="186" width="30" height="140" rx="8"/>
+    <rect x="194" y="232" width="12" height="48" rx="3"/>
+    <!-- right plates -->
+    <rect x="324" y="150" width="40" height="212" rx="10"/>
+    <rect x="370" y="186" width="30" height="140" rx="8"/>
+    <rect x="306" y="232" width="12" height="48" rx="3"/>
+  </g>
+  <!-- knurl marks -->
+  <g fill="#6b1d2a" opacity=".55">
+    <rect x="226" y="249" width="4" height="14"/>
+    <rect x="238" y="249" width="4" height="14"/>
+    <rect x="270" y="249" width="4" height="14"/>
+    <rect x="282" y="249" width="4" height="14"/>
+  </g>
+</svg>
