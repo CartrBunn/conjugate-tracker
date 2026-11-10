@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { Link } from "react-router-dom";
+import templateUrl from "../../supabase/seed/example-program.json?url";
 import { formatCode, parseProgram } from "../lib/program";
 import { supabase } from "../lib/supabase";
 
@@ -167,9 +168,14 @@ export default function CoachHome() {
               </ul>
             )}
             <input ref={fileRef} type="file" accept="application/json,.json" onChange={importProgram} hidden />
-            <button className="btn" onClick={() => fileRef.current?.click()} disabled={importing}>
-              {importing ? "Importing…" : "Import program (.json)"}
-            </button>
+            <div className="row">
+              <button className="btn" onClick={() => fileRef.current?.click()} disabled={importing}>
+                {importing ? "Importing…" : "Import program (.json)"}
+              </button>
+              <a className="small" href={templateUrl} download="program-template.json">
+                Download template
+              </a>
+            </div>
           </section>
         </>
       )}
