@@ -47,7 +47,7 @@ h1 { font-size: 32px } h2 { font-size: 24px } h3 { font-size: 19px; letter-spaci
 .card.danger { border-color: color-mix(in srgb, var(--bad) 40%, var(--line)) }
 .band .btn { border-color: var(--maroon-ink); color: var(--maroon-ink); min-height: 36px }
 
-input[type=text], input[type=email], input[type=password], input[type=number], input[type=date], input[inputmode], select {
+input[type=text], input[type=email], input[type=url], input[type=password], input[type=number], input[type=date], input[inputmode], select {
   padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 6px; background: var(--bg); min-height: 44px; width: 100%
 }
 label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--muted) }
@@ -175,3 +175,27 @@ details summary { cursor: pointer; color: var(--link); font-weight: 600 }
 table.plain { width: 100%; border-collapse: collapse; margin-top: 6px }
 table.plain td { padding: 6px 0; border-bottom: 1px solid var(--line) }
 table.plain td.num { text-align: right; font-weight: 600 }
+
+/* ───── program editor ───── */
+fieldset.bare { border: 0; margin: 0; padding: 0; min-width: 0 }
+details.wk > summary { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; list-style: none; color: var(--ink); font-weight: 400 }
+details.wk > summary::before { content: "▸"; color: var(--muted) }
+details.wk[open] > summary::before { content: "▾" }
+.wk-title { font-family: var(--display); font-weight: 700; font-size: 24px }
+.dayed { border: 1px solid var(--line); border-left: 4px solid var(--maroon-soft); border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 10px }
+.dayed[data-locked] { border-left-color: var(--muted); background: color-mix(in srgb, var(--line) 25%, transparent) }
+.dayed-title { font-family: var(--display); font-size: 20px }
+.sub { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 8px }
+.sub-title { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted) }
+.mvrow { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: start; padding-bottom: 8px; border-bottom: 1px dashed var(--line) }
+.mvnum { font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--muted); padding-top: 26px; text-align: center }
+.mvfields { display: flex; flex-direction: column; gap: 6px; min-width: 0 }
+.mvctl { display: flex; flex-direction: column; padding-top: 18px }
+.mvctl .btn { min-height: 32px; padding: 0 8px }
+.danger-text { color: var(--bad) }
+.savebar { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--line); padding: 10px 0; display: flex; flex-direction: column; gap: 6px; z-index: 1 }
+.savebar p { margin: 0 }
+@media (max-width: 480px) {
+  .mvrow { grid-template-columns: minmax(0, 1fr) auto }
+  .mvnum { display: none }
+}

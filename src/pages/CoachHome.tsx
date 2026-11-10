@@ -159,16 +159,26 @@ export default function CoachHome() {
           <section className="card">
             <h3>Programs</h3>
             {programs.length === 0 ? (
-              <p className="muted">No programs yet. Import a program JSON file to start.</p>
+              <p className="muted">No programs yet. Build one here or import a program JSON file.</p>
             ) : (
               <ul className="list">
                 {programs.map((p) => (
-                  <li key={p.id}>{p.name}</li>
+                  <li key={p.id} className="spread">
+                    <Link to={`/coach/programs/${p.id}`}>
+                      <strong>{p.name}</strong>
+                    </Link>
+                    <Link to={`/coach/programs/${p.id}`} className="small">
+                      Edit
+                    </Link>
+                  </li>
                 ))}
               </ul>
             )}
             <input ref={fileRef} type="file" accept="application/json,.json" onChange={importProgram} hidden />
             <div className="row">
+              <Link className="btn solid" to={`/coach/programs/new?team=${teamId}`}>
+                + New program
+              </Link>
               <button className="btn" onClick={() => fileRef.current?.click()} disabled={importing}>
                 {importing ? "Importing…" : "Import program (.json)"}
               </button>
