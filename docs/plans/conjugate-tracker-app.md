@@ -165,6 +165,7 @@ the caller `owner`.
 | `/#/coach` | coach | ✅ | Teams; create team; groups list with join codes. |
 | `/#/coach/groups/:id` | coach | ✅ | Roster by athlete number: add (auto or chosen number), deactivate, reset PIN, sign out phones, print number + PIN slips, rotate join code. |
 | `/#/coach/groups/:id` (Cycles card) | coach | ✅ | List the group's cycles; start one from a program + start Monday (defaults to the next Monday). Status is `active` if it starts today or earlier, else `planned`. |
+| `/#/coach/athletes/:id` | coach | ✅ | One athlete's training maxes and lift progress (the athlete's Progress view) for any cycle in their group (`?c=<cycleId>`, default chosen by `pickCycle`); previous/next athlete links. Opened from the group roster. |
 | `/#/coach/cycles/:id` | coach | ✅ | Status select; week × day chips linking to each day's grid (today highlighted, past dimmed) and a "Log today" button; tracked-lift picker grouped by family, showing how many program days each lift appears on, plus "+ All max-effort lifts in this program"; starting training maxes grid (athlete × squat/bench/deadlift, `set_on` = cycle start); **Delete cycle**, which confirms with the number of logged results, then deletes the cycle and, by cascade, its tracked lifts, logs and reviews. Training maxes and the program are kept. |
 | `/#/coach/cycles/:id/log/:date` | coach | ✅ | **Logging grid** (below). |
 | `/#/coach/cycles/:id/review` | coach | Phase 3 | Cycle review (below). |

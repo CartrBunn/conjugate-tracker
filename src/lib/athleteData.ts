@@ -3,7 +3,8 @@ import { useAuth } from "./auth";
 import { localToday, programDays, type ExerciseFamily, type TrainingMaxRow, type Week } from "./program";
 import { supabase } from "./supabase";
 
-// Everything the athlete screens need, scoped by RLS to the signed-in athlete.
+// Everything the athlete screens need. Athletes load their own data (scoped by RLS);
+// coaches pass a target athlete to see the same screens for anyone on their team.
 // Spec: docs/plans/conjugate-tracker-app.md → "Athlete app".
 
 export interface AthleteCycle {
@@ -29,6 +30,8 @@ export interface AthleteLog {
 export interface AthleteData {
   loading: boolean;
   error: string | null;
+  /** Every cycle for the athlete's group, newest first. */
+  cycles: AthleteCycle[];
   cycle: AthleteCycle | null;
   weeks: Week[];
   videos: Record<string, string>;
@@ -66,10 +69,23 @@ export function pickCycle(cycles: AthleteCycle[], programs: Map<string, Week[]>,
   return byRecent.find((c) => c.status !== "closed") ?? byRecent[0] ?? null;
 }
 
-export function useAthleteData(): AthleteData {
-  const { athlete } = useAuth();
+export interface AthleteTarget {
+  id: string;
+  group_id: string;
+}
+
+/**
+ * Load one athlete's cycle, program, tracked lifts, logs and maxes.
+ * `target` defaults to the signed-in athlete. `cycleId` picks a cycle; otherwise `pickCycle` does.
+ */
+export function useAthleteData(target?: AthleteTarget | null, cycleId?: string | null): AthleteData {
+  const { athlete: self } = useAuth();
+  const athlete = target === undefined ? self : target;
+  const athleteId = athlete?.id;
+  const groupId = athlete?.group_id;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [cycles, setCycles] = useState<AthleteCycle[]>([]);
   const [cycle, setCycle] = useState<AthleteCycle | null>(null);
   const [weeks, setWeeks] = useState<Week[]>([]);
   const [videos, setVideos] = useState<Record<string, string>>({});
@@ -78,9 +94,13 @@ export function useAthleteData(): AthleteData {
   const [maxes, setMaxes] = useState<TrainingMaxRow[]>([]);
 
   const reload = useCallback(async () => {
-    if (!athlete) return;
+    if (!athleteId || !groupId) return;
     setError(null);
-    const c = await supabase.from("cycles").select("id, name, start_date, status, program_id");
+    const c = await supabase
+      .from("cycles")
+      .select("id, name, start_date, status, program_id")
+      .eq("group_id", groupId)
+      .order("start_date", { ascending: false });
     if (c.error) {
       setLoading(false);
       return setError(c.error.message);
@@ -94,11 +114,11 @@ export function useAthleteData(): AthleteData {
       return setError(p.error.message);
     }
     const programs = new Map((p.data as ProgramRow[]).map((r) => [r.id, r]));
-    const chosen = pickCycle(
-      c.data as AthleteCycle[],
-      new Map([...programs].map(([id, r]) => [id, r.weeks])),
-      localToday(),
-    );
+    const all = c.data as AthleteCycle[];
+    const chosen =
+      all.find((x) => x.id === cycleId) ??
+      pickCycle(all, new Map([...programs].map(([id, r]) => [id, r.weeks])), localToday());
+    setCycles(all);
     setCycle(chosen);
     if (!chosen) {
       setLoading(false);
@@ -113,8 +133,8 @@ export function useAthleteData(): AthleteData {
         .select("sort, exercises(id, name, family, unit, higher_is_better)")
         .eq("cycle_id", chosen.id)
         .order("sort"),
-      supabase.from("logs").select("exercise_id, performed_on, value").eq("cycle_id", chosen.id).eq("athlete_id", athlete.id),
-      supabase.from("training_maxes").select("athlete_id, family, value, set_on").eq("athlete_id", athlete.id),
+      supabase.from("logs").select("exercise_id, performed_on, value").eq("cycle_id", chosen.id).eq("athlete_id", athleteId),
+      supabase.from("training_maxes").select("athlete_id, family, value, set_on").eq("athlete_id", athleteId),
     ]);
     const firstError = [t, l, m].find((r) => r.error)?.error;
     if (firstError) {
@@ -127,11 +147,11 @@ export function useAthleteData(): AthleteData {
     setLogs((l.data ?? []).map((r) => ({ ...r, value: Number(r.value) })));
     setMaxes((m.data ?? []).map((r) => ({ ...r, value: Number(r.value) })) as TrainingMaxRow[]);
     setLoading(false);
-  }, [athlete]);
+  }, [athleteId, groupId, cycleId]);
 
   useEffect(() => {
     reload();
   }, [reload]);
 
-  return { loading, error, cycle, weeks, videos, tracked, logs, maxes, reload, setLogs };
+  return { loading, error, cycles, cycle, weeks, videos, tracked, logs, maxes, reload, setLogs };
 }

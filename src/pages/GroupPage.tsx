@@ -274,7 +274,9 @@ export default function GroupPage() {
         <ul className="list">
           {athletes.map((a) => (
             <li key={a.id} className="spread" style={{ opacity: a.active ? 1 : 0.5 }}>
-              <strong>Athlete #{a.number}</strong>
+              <Link to={`/coach/athletes/${a.id}`}>
+                <strong>Athlete #{a.number}</strong>
+              </Link>
               <span className="row">
                 {a.active && (
                   <>

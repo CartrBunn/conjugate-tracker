@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { createHashRouter, Link, Navigate, Outlet, RouterProvider } from "react-router-dom";
 import { useAuth, type Role } from "./lib/auth";
 import { isConfigured } from "./lib/supabase";
+import CoachAthlete from "./pages/CoachAthlete";
 import CoachHome from "./pages/CoachHome";
 import CoachLogin from "./pages/CoachLogin";
 import CyclePage from "./pages/CyclePage";
@@ -60,6 +61,7 @@ const router = createHashRouter([
       { path: "/coach/login", element: <CoachLogin /> },
       { path: "/coach", element: <Only role="coach"><CoachHome /></Only> },
       { path: "/coach/groups/:groupId", element: <Only role="coach"><GroupPage /></Only> },
+      { path: "/coach/athletes/:athleteId", element: <Only role="coach"><CoachAthlete /></Only> },
       { path: "/coach/cycles/:cycleId", element: <Only role="coach"><CyclePage /></Only> },
       { path: "/coach/cycles/:cycleId/log/:date", element: <Only role="coach"><LogPage /></Only> },
       { path: "/coach/programs/new", element: <Only role="coach"><ProgramEditor /></Only> },
