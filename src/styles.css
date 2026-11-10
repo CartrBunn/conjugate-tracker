@@ -199,3 +199,15 @@ details.wk[open] > summary::before { content: "▾" }
   .mvrow { grid-template-columns: minmax(0, 1fr) auto }
   .mvnum { display: none }
 }
+
+/* Group workout screen (/coach/cycles/:id/workout): readable from across the gym in full screen. */
+.board:fullscreen { background: var(--bg); overflow-y: auto; padding: 24px max(24px, calc((100vw - 1100px) / 2)); font-size: 20px }
+.board:fullscreen h1 { font-size: 44px }
+.board:fullscreen .daynav-mid strong { font-size: 36px }
+.board:fullscreen .lift .ln { font-size: 56px }
+.board:fullscreen .lift .rxbig { font-size: 40px }
+.board:fullscreen .lift .note { font-size: 22px }
+.board:fullscreen .mv .name { font-size: 26px }
+.board:fullscreen .mv .rx { font-size: 20px }
+.board:fullscreen .mv .num { font-size: 32px; width: 32px }
+.board:fullscreen .sechead h3 { font-size: 28px }

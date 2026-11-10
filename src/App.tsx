@@ -13,6 +13,7 @@ import Join from "./pages/Join";
 import Me from "./pages/Me";
 import MyProgress from "./pages/MyProgress";
 import ProgramEditor from "./pages/ProgramEditor";
+import WorkoutBoard from "./pages/WorkoutBoard";
 
 function Shell() {
   const { role, signOut } = useAuth();
@@ -64,6 +65,7 @@ const router = createHashRouter([
       { path: "/coach/athletes/:athleteId", element: <Only role="coach"><CoachAthlete view="workout" /></Only> },
       { path: "/coach/athletes/:athleteId/progress", element: <Only role="coach"><CoachAthlete view="progress" /></Only> },
       { path: "/coach/cycles/:cycleId", element: <Only role="coach"><CyclePage /></Only> },
+      { path: "/coach/cycles/:cycleId/workout", element: <Only role="coach"><WorkoutBoard /></Only> },
       { path: "/coach/cycles/:cycleId/log/:date", element: <Only role="coach"><LogPage /></Only> },
       { path: "/coach/programs/new", element: <Only role="coach"><ProgramEditor /></Only> },
       { path: "/coach/programs/:programId", element: <Only role="coach"><ProgramEditor /></Only> },

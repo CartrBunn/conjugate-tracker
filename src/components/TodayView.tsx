@@ -18,6 +18,7 @@ import { supabase } from "../lib/supabase";
 // The day's workout as the athlete sees it. Spec: docs/plans/conjugate-tracker-app.md → "Athlete app".
 // Layout: circuit → main lift → results → GPP. Used by /me and the coach's athlete page;
 // with `coach` set, results still save but there's no "raise your max" prompt.
+// With no `athleteId` it's the group workout screen: no bar weight or results, just the session.
 
 const FULL_DAY = { Mon: "Monday", Tue: "Tuesday", Thu: "Thursday", Fri: "Friday" } as const;
 const BIG3: Family[] = ["squat", "bench", "deadlift"];
@@ -31,7 +32,15 @@ function Watch({ url, name }: { url?: string; name: string }) {
   );
 }
 
-export default function TodayView({ data, athleteId, coach = false }: { data: AthleteData; athleteId: string; coach?: boolean }) {
+export default function TodayView({
+  data,
+  athleteId,
+  coach = false,
+}: {
+  data: Pick<AthleteData, "cycle" | "weeks" | "videos" | "tracked" | "logs" | "maxes" | "setLogs" | "reload">;
+  athleteId?: string;
+  coach?: boolean;
+}) {
   const { cycle, weeks, videos, tracked, logs, maxes, setLogs, reload } = data;
   const [params, setParams] = useSearchParams();
   const [raise, setRaise] = useState<{ family: Family; value: number; from: number | null } | null>(null);
@@ -66,10 +75,10 @@ export default function TodayView({ data, athleteId, coach = false }: { data: At
   const canLog = date <= today;
   const columns = day ? exercisesForDay(tracked, day) : [];
   const valueOf = (exerciseId: string) => logs.find((l) => l.exercise_id === exerciseId && l.performed_on === date)?.value ?? null;
-  const tm = main ? trainingMaxOn(maxes, athleteId, main.key, date) : null;
+  const tm = main && athleteId ? trainingMaxOn(maxes, athleteId, main.key, date) : null;
 
   async function save(exerciseId: string, family: string, value: number | null): Promise<string | null> {
-    if (!cycle) return "No cycle";
+    if (!cycle || !athleteId) return "No athlete";
     const key = { athlete_id: athleteId, exercise_id: exerciseId, performed_on: date };
     const { error } =
       value === null
@@ -173,7 +182,13 @@ export default function TodayView({ data, athleteId, coach = false }: { data: At
               <Watch url={videos[main.name]} name={main.name} />
             </div>
             <div className="calc">
-              {main.pct !== null ? (
+              {!athleteId ? (
+                <p className="muted small">
+                  {main.pct !== null
+                    ? `Bar weight: ${main.pct}% of your ${main.key} max, rounded to 5. It's on your Today page.`
+                    : "Work up to a heavy single and log your best on your Today page."}
+                </p>
+              ) : main.pct !== null ? (
                 tm ? (
                   <div className="out">
                     {speedWeight(tm, main.pct)} lb
@@ -196,7 +211,7 @@ export default function TodayView({ data, athleteId, coach = false }: { data: At
             </div>
           </section>
 
-          {columns.length > 0 && (
+          {athleteId && columns.length > 0 && (
             <section className="sess">
               <div className="sechead">
                 <h3>{coach ? "Results" : "Your results"}</h3>

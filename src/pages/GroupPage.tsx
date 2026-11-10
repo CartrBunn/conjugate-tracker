@@ -203,8 +203,13 @@ export default function GroupPage() {
                 <Link to={`/coach/cycles/${c.id}`}>
                   <strong>{c.name}</strong>
                 </Link>
-                <span className="muted small">
+                <span className="row muted small">
                   starts {shortDate(c.start_date)} · {c.status}
+                  {c.status !== "closed" && (
+                    <Link className="btn ghost small" to={`/coach/cycles/${c.id}/workout`}>
+                      Show workout
+                    </Link>
+                  )}
                 </span>
               </li>
             ))}

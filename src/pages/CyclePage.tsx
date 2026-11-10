@@ -192,11 +192,18 @@ export default function CyclePage() {
       <section className="card">
         <div className="spread">
           <h3>Log a day</h3>
-          {todayDay && (
-            <Link className="btn solid" to={`/coach/cycles/${cycle.id}/log/${today}`}>
-              Log today
-            </Link>
-          )}
+          <span className="row">
+            {days.length > 0 && (
+              <Link className="btn" to={`/coach/cycles/${cycle.id}/workout`}>
+                Show workout
+              </Link>
+            )}
+            {todayDay && (
+              <Link className="btn solid" to={`/coach/cycles/${cycle.id}/log/${today}`}>
+                Log today
+              </Link>
+            )}
+          </span>
         </div>
         {tracked.size === 0 && <p className="notice small">Pick tracked lifts below first — they become the grid's columns.</p>}
         <div className="weeks-grid">
